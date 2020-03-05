@@ -49,10 +49,10 @@ defmodule MyApp.Auth do
       nil ->
         {:error, "Invalid access key ID: #{key_id}"}
 
-      {:ok, %AccessKey{revoked: true}} ->
+      %AccessKey{revoked: true} ->
         {:error, "Access key revoked: #{key_id}"}
 
-      {:ok, %AccessKey{public_key: pem, client: client}} ->
+      %AccessKey{public_key: pem, client: client} ->
         public_key = X509.PublicKey.from_pem!(pem)
         {:ok, client, public_key}
     end
